@@ -3,7 +3,9 @@ package com.springai.springaidemo;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.ai.client.AiClient;
 import org.springframework.ai.client.AiResponse;
+import org.springframework.ai.prompt.Prompt;
 import org.springframework.ai.prompt.PromptTemplate;
+import org.springframework.ai.prompt.messages.Message;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpEntity;
@@ -61,7 +63,7 @@ public class DemoRestController {
         PromptTemplate promptTemplate = new PromptTemplate("""
                 I'm bored with hello world apps. Can you create me a prompt about {topic}. Enhance the topic I gave you. Make it fancy.
                 Make resolution 256x256 but in Json it needs to be string. I want only 1 creation. Give me as JSON format: prompt, n, size.
-                Do not make any comments. Just JSON file.
+                Do not make any comments. Just JSON file. In JSON, n ise an integer
                 """);
         promptTemplate.add("topic", topic);
         String imagePrompt = this.aiClient.generate(promptTemplate.create()).getGeneration().getText();
